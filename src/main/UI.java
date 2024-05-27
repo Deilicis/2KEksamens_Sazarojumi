@@ -31,7 +31,7 @@ public class UI extends JFrame {
     }
 
     private void initialize() {
-        setTitle("Picērija");
+        setTitle("Tests");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setBounds(100, 100, 1275, 642);
@@ -55,11 +55,19 @@ public class UI extends JFrame {
         JButton saktBtn = new JButton("Sākt");
         saktBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         saktBtn.setBounds(484, 305, 241, 60);
+        saktBtn.setBorderPainted(false); 
+        saktBtn.setContentAreaFilled(false); 
+        saktBtn.setFocusPainted(false); 
+        saktBtn.setOpaque(false);
         mainPanel.add(saktBtn);
 
         JButton izietBtn = new JButton("Iziet");
         izietBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         izietBtn.setBounds(484, 404, 241, 73);
+        izietBtn.setBorderPainted(false); 
+        izietBtn.setContentAreaFilled(false); 
+        izietBtn.setFocusPainted(false); 
+        izietBtn.setOpaque(false);
         mainPanel.add(izietBtn);
 
         JLabel autorLbl = new JLabel("Autors: Dāvis Zigners");
@@ -92,9 +100,43 @@ public class UI extends JFrame {
         infoPanel.setBackground(Color.WHITE);
 
         JLabel infoLabel = new JLabel("Informācija par šo testu");
-        infoLabel.setFont(new Font("Sitka Text", Font.PLAIN, 30));
+        infoLabel.setFont(new Font("Sitka Text", Font.BOLD, 30));
         infoLabel.setBounds(100, 100, 500, 50);
         infoPanel.add(infoLabel);
+        
+        JLabel infoLbl = new JLabel("Šis tests iekļauj 10 pēc nejauša gadījuma izvēlētus jautājumus par tēmu:");
+        infoLbl.setFont(new Font("Sitka Text", Font.PLAIN, 20));
+        infoLbl.setBounds(100, 178, 1020, 50);
+        infoPanel.add(infoLbl);
+        
+        JLabel infoLbl_1 = new JLabel("Sazarošanas konstrukcijas programmēšanas valodā Java.");
+        infoLbl_1.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 20));
+        infoLbl_1.setBounds(100, 218, 1020, 50);
+        infoPanel.add(infoLbl_1);
+        
+        JLabel infoLbl_1_1 = new JLabel("Katrā jautājumā ir 4 izvēles opcijas ar vienu pareizu atbildi un uz jautājumiem atbild, kamēr ir pareizi.");
+        infoLbl_1_1.setFont(new Font("Sitka Text", Font.PLAIN, 20));
+        infoLbl_1_1.setBounds(100, 257, 1020, 50);
+        infoPanel.add(infoLbl_1_1);
+        
+        JLabel infoLbl_1_1_1 = new JLabel("Beigās būs redzams jūsu rezultāts, parādot jūsu zināšanas par šo tēmu.");
+        infoLbl_1_1_1.setFont(new Font("Sitka Text", Font.PLAIN, 20));
+        infoLbl_1_1_1.setBounds(100, 299, 1020, 50);
+        infoPanel.add(infoLbl_1_1_1);
+        
+        JLabel lblVeiksmi = new JLabel("Veiksmi!");
+        lblVeiksmi.setFont(new Font("Sitka Text", Font.BOLD, 30));
+        lblVeiksmi.setBounds(100, 359, 500, 50);
+        infoPanel.add(lblVeiksmi);
+        
+        JButton goBtn = new JButton("Aiziet");
+        goBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
+        goBtn.setBounds(913, 507, 241, 73);
+        goBtn.setBorderPainted(false); 
+        goBtn.setContentAreaFilled(false); 
+        goBtn.setFocusPainted(false); 
+        goBtn.setOpaque(false);
+        infoPanel.add(goBtn);
         
         JLabel imgLbl = new JLabel();
         imgLbl.setIcon(new ImageIcon(bckImg));

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +22,8 @@ public class UI extends JFrame {
     private JPanel infoPanel = new JPanel();
     private JPanel cardPanel;
     private CardLayout cardLayout;
+    Klase klase = new Klase();
+    ArrayList<UzdPlain> uzd = new ArrayList<UzdPlain>();
     Image bckImg = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
 
     public UI() {
@@ -130,18 +133,39 @@ public class UI extends JFrame {
         
         JButton goBtn = new JButton("Aiziet");
         goBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
-        goBtn.setBounds(913, 507, 241, 73);
+        goBtn.setBounds(913, 500, 241, 73);
         goBtn.setBorderPainted(false); 
         goBtn.setContentAreaFilled(false); 
         goBtn.setFocusPainted(false); 
         goBtn.setOpaque(false);
         infoPanel.add(goBtn);
         
+        JButton bckBtn = new JButton("Atpakaļ");
+        bckBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
+        bckBtn.setBounds(70, 500, 241, 73);
+        bckBtn.setBorderPainted(false); 
+        bckBtn.setContentAreaFilled(false); 
+        bckBtn.setFocusPainted(false); 
+        bckBtn.setOpaque(false);
+        infoPanel.add(bckBtn);
+        
         JLabel imgLbl = new JLabel();
         imgLbl.setIcon(new ImageIcon(bckImg));
         imgLbl.setBounds(-138, -312, 1434, 1125);
         infoPanel.add(imgLbl);
-
+        
+        goBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        bckBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+              cardLayout.show(cardPanel, "mainPanel");  
+            }
+        });
+        
         cardPanel.add(infoPanel, "infoPanel");
+        
     }
 }

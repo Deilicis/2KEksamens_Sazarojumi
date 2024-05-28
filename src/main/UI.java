@@ -23,13 +23,15 @@ public class UI extends JFrame {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     Klase klase = new Klase();
-    ArrayList<UzdPlain> uzd = new ArrayList<UzdPlain>();
+    ArrayList<UzdPlain> uzd = klase.getJautajumi();
     Image bckImg = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
 
     public UI() {
         initialize();
         setupInfoPanel();
+        setupQuestPanel();
         setContentPane(cardPanel);
+        
     }
 
     private void initialize() {
@@ -156,7 +158,7 @@ public class UI extends JFrame {
         
         goBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+            	cardLayout.show(cardPanel, "questPanel");  
             }
         });
         bckBtn.addActionListener(new ActionListener() {
@@ -167,5 +169,46 @@ public class UI extends JFrame {
         
         cardPanel.add(infoPanel, "infoPanel");
         
+    }
+    private void setupQuestPanel() {
+
+        JPanel questPanel = new JPanel();
+        questPanel.setLayout(null);
+        
+        JLabel kursJautLbl = new JLabel("_. Jautājums");
+        kursJautLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
+        kursJautLbl.setBounds(504, 0, 217, 55);
+        questPanel.add(kursJautLbl);
+        
+        JLabel jautImgLbl = new JLabel();
+        jautImgLbl.setBounds(392, 45, 447, 370);
+        questPanel.add(jautImgLbl);
+        
+        JLabel jautTxtLbl = new JLabel("blah blah blah blah");
+        jautTxtLbl.setFont(new Font("Sitka Text", Font.PLAIN, 15));
+        jautTxtLbl.setBounds(223, 410, 831, 47);
+        questPanel.add(jautTxtLbl);
+        
+        JButton izv1Btn = new JButton("New button");
+        izv1Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        izv1Btn.setBounds(10, 496, 265, 41);
+        questPanel.add(izv1Btn);
+        
+        JButton izv2Btn = new JButton("New button");
+        izv2Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        izv2Btn.setBounds(340, 496, 265, 41);
+        questPanel.add(izv2Btn);
+        
+        JButton izv3Btn = new JButton("New button");
+        izv3Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        izv3Btn.setBounds(667, 496, 265, 41);
+        questPanel.add(izv3Btn);
+        
+        JButton izv4Btn = new JButton("New button");
+        izv4Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        izv4Btn.setBounds(986, 496, 265, 41);
+        questPanel.add(izv4Btn);
+        
+        cardPanel.add(questPanel, "questPanel");
     }
 }

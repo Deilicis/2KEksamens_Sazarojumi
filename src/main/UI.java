@@ -20,6 +20,8 @@ public class UI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel mainPanel = new JPanel();
     private JPanel infoPanel = new JPanel();
+    private JPanel questPanel;
+    private JPanel resultPanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
     JLabel kursJautLbl;
@@ -29,11 +31,17 @@ public class UI extends JFrame {
     JButton izv2Btn;
     JButton izv3Btn;
     JButton izv4Btn;
+    boolean atbildetsPareizi;
+	String teksts;
+	String parAtbilde;
+	Image bilde;
+	String[] atbVar;
+	int[] i = {1};
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
     Image bckImg = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
     Image bckImg2 = new ImageIcon(this.getClass().getResource("/backgroundTest.jpeg")).getImage();
-    private JPanel questPanel;
+   
 
     public UI() {
         initialize();
@@ -236,32 +244,52 @@ public class UI extends JFrame {
         izv4Btn.setOpaque(false);
         questPanel.add(izv4Btn);
         
+        
         JLabel backImg2 = new JLabel();
         backImg2.setIcon(new ImageIcon(bckImg2));
         backImg2.setBounds(215, 65, 748, 403);
         questPanel.add(backImg2);
         
+        izv1Btn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	i[0]+=1;
+             checkIf10(i[0]);
+            }
+        });
+       izv2Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	   i[0]+=1;
+        	   checkIf10(i[0]);
+           }
+       });
+       izv3Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	   i[0]+=1;
+        	   checkIf10(i[0]);
+           }
+       });
+       izv4Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	   i[0]+=1;
+        	   checkIf10(i[0]);
+           }
+       });
         cardPanel.add(questPanel, "questPanel");
         
     }
     public void quizEkrans(){
-    	boolean atbildetsPareizi;
-    	String teksts;
-    	String parAtbilde;
-    	Image bilde;
-    	String[] atbVar;
-    	int[] i = {1};
-//    	do {
+    	
+
     		
-    		teksts=uzd.get(i[0]).getTeksts();
-        	parAtbilde=uzd.get(i[0]).getParAtbilde();
-        	bilde=uzd.get(i[0]).getBilde();
-        	atbVar=uzd.get(i[0]).getAtbVar();
+    	teksts=uzd.get(i[0]).getTeksts();
+        parAtbilde=uzd.get(i[0]).getParAtbilde();
+        bilde=uzd.get(i[0]).getBilde();
+        atbVar=uzd.get(i[0]).getAtbVar();
         kursJautLbl.setText(i[0]+". Jautājums");
         jautTxtLbl.setText(teksts);
-        if(bilde!=null) {
+        jautImgLbl.setIcon(null);
+        if(bilde!=null)
         	jautImgLbl.setIcon(new ImageIcon(bilde));
-        }
         izv1Btn.setText(atbVar[0]);
         izv2Btn.setText(atbVar[1]);
         izv3Btn.setText(atbVar[2]);
@@ -269,27 +297,16 @@ public class UI extends JFrame {
         questPanel.revalidate();
         questPanel.repaint();
         
-       izv1Btn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-             i[0]++;
-            }
-        });
-       izv2Btn.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-        	  i[0]++;
-           }
-       });
-       izv3Btn.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-        	   i[0]++;
-           }
-       });
-       izv4Btn.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-        	   i[0]++;
-           }
-       });
         
 //    }while(i[0]!=10);
+    }
+    public void checkIf10(int i) {
+    	if(i!=11) {
+            questPanel.revalidate();
+            questPanel.repaint();
+            quizEkrans();
+       }else {
+    	   
+       }
     }
 }

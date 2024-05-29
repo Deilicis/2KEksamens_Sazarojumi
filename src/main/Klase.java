@@ -3,6 +3,7 @@ package main;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 
@@ -44,7 +45,8 @@ public class Klase {
 			}
 		});
 	}
-	public ArrayList<UzdPlain> getJautajumi() {
+	public static ArrayList<UzdPlain> getRandOrderJautajumi() {
+		Collections.shuffle(uzdArray);
 		return uzdArray;
 	}
 

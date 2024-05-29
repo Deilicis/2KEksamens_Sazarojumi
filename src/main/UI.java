@@ -22,9 +22,18 @@ public class UI extends JFrame {
     private JPanel infoPanel = new JPanel();
     private JPanel cardPanel;
     private CardLayout cardLayout;
+    JLabel kursJautLbl;
+    JLabel jautImgLbl;
+    JLabel jautTxtLbl;
+    JButton izv1Btn;
+    JButton izv2Btn;
+    JButton izv3Btn;
+    JButton izv4Btn;
     Klase klase = new Klase();
-    ArrayList<UzdPlain> uzd = klase.getJautajumi();
+    ArrayList<UzdPlain> uzd;
     Image bckImg = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
+    Image bckImg2 = new ImageIcon(this.getClass().getResource("/backgroundTest.jpeg")).getImage();
+    private JPanel questPanel;
 
     public UI() {
         initialize();
@@ -158,7 +167,9 @@ public class UI extends JFrame {
         
         goBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	uzd = klase.getRandOrderJautajumi();
             	cardLayout.show(cardPanel, "questPanel");  
+            	quizEkrans();
             }
         });
         bckBtn.addActionListener(new ActionListener() {
@@ -172,43 +183,113 @@ public class UI extends JFrame {
     }
     private void setupQuestPanel() {
 
-        JPanel questPanel = new JPanel();
+        questPanel = new JPanel();
         questPanel.setLayout(null);
         
-        JLabel kursJautLbl = new JLabel("_. Jautājums");
+        kursJautLbl = new JLabel("_. Jautājums");
         kursJautLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
         kursJautLbl.setBounds(504, 0, 217, 55);
         questPanel.add(kursJautLbl);
         
-        JLabel jautImgLbl = new JLabel();
-        jautImgLbl.setBounds(392, 45, 447, 370);
+        jautImgLbl = new JLabel();
+        jautImgLbl.setBounds(382, 75, 447, 370);
         questPanel.add(jautImgLbl);
         
-        JLabel jautTxtLbl = new JLabel("blah blah blah blah");
+        jautTxtLbl = new JLabel("blah blah blah blah");
         jautTxtLbl.setFont(new Font("Sitka Text", Font.PLAIN, 15));
-        jautTxtLbl.setBounds(223, 410, 831, 47);
+        jautTxtLbl.setBounds(241, 391, 679, 47);
         questPanel.add(jautTxtLbl);
         
-        JButton izv1Btn = new JButton("New button");
+        izv1Btn = new JButton("1.Izv");
         izv1Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv1Btn.setBounds(10, 496, 265, 41);
+        izv1Btn.setBorderPainted(false); 
+        izv1Btn.setContentAreaFilled(false); 
+        izv1Btn.setFocusPainted(false); 
+        izv1Btn.setOpaque(false);
         questPanel.add(izv1Btn);
         
-        JButton izv2Btn = new JButton("New button");
+        izv2Btn = new JButton("2.Izv");
         izv2Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv2Btn.setBounds(340, 496, 265, 41);
+        izv2Btn.setBorderPainted(false); 
+        izv2Btn.setContentAreaFilled(false); 
+        izv2Btn.setFocusPainted(false); 
+        izv2Btn.setOpaque(false);
         questPanel.add(izv2Btn);
         
-        JButton izv3Btn = new JButton("New button");
+        izv3Btn = new JButton("3.Izv");
         izv3Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv3Btn.setBounds(667, 496, 265, 41);
+        izv3Btn.setBorderPainted(false); 
+        izv3Btn.setContentAreaFilled(false); 
+        izv3Btn.setFocusPainted(false); 
+        izv3Btn.setOpaque(false);
         questPanel.add(izv3Btn);
         
-        JButton izv4Btn = new JButton("New button");
+        izv4Btn = new JButton("4.Izv");
         izv4Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv4Btn.setBounds(986, 496, 265, 41);
+        izv4Btn.setBorderPainted(false); 
+        izv4Btn.setContentAreaFilled(false); 
+        izv4Btn.setFocusPainted(false); 
+        izv4Btn.setOpaque(false);
         questPanel.add(izv4Btn);
         
+        JLabel backImg2 = new JLabel();
+        backImg2.setIcon(new ImageIcon(bckImg2));
+        backImg2.setBounds(215, 65, 748, 403);
+        questPanel.add(backImg2);
+        
         cardPanel.add(questPanel, "questPanel");
+        
+    }
+    public void quizEkrans(){
+    	boolean atbildetsPareizi;
+    	String teksts;
+    	String parAtbilde;
+    	Image bilde;
+    	String[] atbVar;
+    	int[] i = {1};
+//    	do {
+    		
+    		teksts=uzd.get(i[0]).getTeksts();
+        	parAtbilde=uzd.get(i[0]).getParAtbilde();
+        	bilde=uzd.get(i[0]).getBilde();
+        	atbVar=uzd.get(i[0]).getAtbVar();
+        kursJautLbl.setText(i[0]+". Jautājums");
+        jautTxtLbl.setText(teksts);
+        if(bilde!=null) {
+        	jautImgLbl.setIcon(new ImageIcon(bilde));
+        }
+        izv1Btn.setText(atbVar[0]);
+        izv2Btn.setText(atbVar[1]);
+        izv3Btn.setText(atbVar[2]);
+        izv4Btn.setText(atbVar[3]);
+        questPanel.revalidate();
+        questPanel.repaint();
+        
+       izv1Btn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+             i[0]++;
+            }
+        });
+       izv2Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	  i[0]++;
+           }
+       });
+       izv3Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	   i[0]++;
+           }
+       });
+       izv4Btn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+        	   i[0]++;
+           }
+       });
+        
+//    }while(i[0]!=10);
     }
 }

@@ -16,7 +16,7 @@ public class UzdPlain {
 	public String getTeksts() {
 		return teksts;
 	}
-	public String parAtbilde() {
+	public String getParAtbilde() {
 		return parAtbilde;
 	}
 	public Image getBilde() {

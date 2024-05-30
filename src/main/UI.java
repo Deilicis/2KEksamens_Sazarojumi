@@ -30,26 +30,31 @@ public class UI extends JFrame {
     JLabel jautImgLbl;
     JLabel jautTxtLbl;
     JLabel nepareiziLbl;
+    JLabel rezLbl;
+    JLabel rezImgLbl;
     JButton izv1Btn;
     JButton izv2Btn;
     JButton izv3Btn;
     JButton izv4Btn;
     boolean atbildetsPareizi;
     boolean atbildetsPareizi1;
-	String teksts;
-	String parAtbilde;
-	Image bilde;
-	String[] atbVar;
-	String lietAtb;
-	int[] i = {0};
-	int parAtbildeti;
-	
+    String teksts;
+    String parAtbilde;
+    Image bilde;
+    String[] atbVar;
+    String lietAtb;
+    int[] i = {0};
+    int parAtbildeti;
+    boolean firstAttempt;  // Add this flag
+
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
-    Image bckImg = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
     Image bckImg2 = new ImageIcon(this.getClass().getResource("/backgroundTest.png")).getImage();
     Image basicImg = new ImageIcon(this.getClass().getResource("/basicImg.png")).getImage();
-   
+    Image goodRez = new ImageIcon(this.getClass().getResource("/goodRez.jpg")).getImage();
+    Image midRez = new ImageIcon(this.getClass().getResource("/midRez.jpg")).getImage();
+    Image badRez = new ImageIcon(this.getClass().getResource("/badRez.jpg")).getImage();
+
 
     public UI() {
         initialize();
@@ -57,8 +62,8 @@ public class UI extends JFrame {
         setupQuestPanel();
         setupRezPanel();
         setContentPane(cardPanel);
-        
-        
+
+
     }
 
     private void initialize() {
@@ -72,7 +77,7 @@ public class UI extends JFrame {
         cardPanel.setLayout(cardLayout);
 
         mainPanel.setLayout(null);
-
+        mainPanel.setBackground(Color.white);
         JLabel galvenaisTitulsLbl = new JLabel("Sazarojuma konstrukcijas programmēšanas valodā Java");
         galvenaisTitulsLbl.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         galvenaisTitulsLbl.setBounds(254, 66, 797, 87);
@@ -106,11 +111,6 @@ public class UI extends JFrame {
         autorLbl.setBounds(1099, 576, 162, 29);
         mainPanel.add(autorLbl);
 
-        JLabel imgLbl = new JLabel();
-        imgLbl.setIcon(new ImageIcon(bckImg));
-        imgLbl.setBounds(-138, -312, 1434, 1125);
-        mainPanel.add(imgLbl);
-
         cardPanel.add(mainPanel, "mainPanel");
 
         saktBtn.addActionListener(new ActionListener() {
@@ -134,32 +134,32 @@ public class UI extends JFrame {
         infoLabel.setFont(new Font("Sitka Text", Font.BOLD, 30));
         infoLabel.setBounds(100, 100, 500, 50);
         infoPanel.add(infoLabel);
-        
+
         JLabel infoLbl = new JLabel("Šis tests iekļauj 10 pēc nejauša gadījuma izvēlētus jautājumus par tēmu:");
         infoLbl.setFont(new Font("Sitka Text", Font.PLAIN, 20));
         infoLbl.setBounds(100, 178, 1020, 50);
         infoPanel.add(infoLbl);
-        
+
         JLabel infoLbl_1 = new JLabel("Sazarošanas konstrukcijas programmēšanas valodā Java.");
         infoLbl_1.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 20));
         infoLbl_1.setBounds(100, 218, 1020, 50);
         infoPanel.add(infoLbl_1);
-        
+
         JLabel infoLbl_1_1 = new JLabel("Katrā jautājumā ir 4 izvēles opcijas ar vienu pareizu atbildi un uz jautājumiem atbild, kamēr ir pareizi.");
         infoLbl_1_1.setFont(new Font("Sitka Text", Font.PLAIN, 20));
         infoLbl_1_1.setBounds(100, 257, 1020, 50);
         infoPanel.add(infoLbl_1_1);
-        
+
         JLabel infoLbl_1_1_1 = new JLabel("Beigās būs redzams jūsu rezultāts, parādot jūsu zināšanas par šo tēmu.");
         infoLbl_1_1_1.setFont(new Font("Sitka Text", Font.PLAIN, 20));
         infoLbl_1_1_1.setBounds(100, 299, 1020, 50);
         infoPanel.add(infoLbl_1_1_1);
-        
+
         JLabel lblVeiksmi = new JLabel("Veiksmi!");
         lblVeiksmi.setFont(new Font("Sitka Text", Font.BOLD, 30));
         lblVeiksmi.setBounds(100, 359, 500, 50);
         infoPanel.add(lblVeiksmi);
-        
+
         JButton goBtn = new JButton("Aiziet");
         goBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         goBtn.setBounds(913, 500, 241, 73);
@@ -168,7 +168,7 @@ public class UI extends JFrame {
         goBtn.setFocusPainted(false); 
         goBtn.setOpaque(false);
         infoPanel.add(goBtn);
-        
+
         JButton bckBtn = new JButton("Atpakaļ");
         bckBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         bckBtn.setBounds(70, 500, 241, 73);
@@ -177,47 +177,42 @@ public class UI extends JFrame {
         bckBtn.setFocusPainted(false); 
         bckBtn.setOpaque(false);
         infoPanel.add(bckBtn);
-        
-        JLabel imgLbl = new JLabel();
-        imgLbl.setIcon(new ImageIcon(bckImg));
-        imgLbl.setBounds(-138, -312, 1434, 1125);
-        infoPanel.add(imgLbl);
-        
+
         goBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	uzd = klase.getRandOrderJautajumi();
-            	cardLayout.show(cardPanel, "questPanel");  
-            	quizEkrans();
+                uzd = klase.getRandOrderJautajumi();
+                cardLayout.show(cardPanel, "questPanel");  
+                quizEkrans();
             }
         });
         bckBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              cardLayout.show(cardPanel, "mainPanel");  
+                cardLayout.show(cardPanel, "mainPanel");  
             }
         });
-        
+
         cardPanel.add(infoPanel, "infoPanel");
-        
+
     }
     private void setupQuestPanel() {
 
         questPanel = new JPanel();
         questPanel.setLayout(null);
-        
+
         kursJautLbl = new JLabel("_. Jautājums");
         kursJautLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
         kursJautLbl.setBounds(208, 413, 217, 55);
         questPanel.add(kursJautLbl);
-        
+
         jautImgLbl = new JLabel();
         jautImgLbl.setBounds(348, 0, 500, 468);
         questPanel.add(jautImgLbl);
-        
+
         jautTxtLbl = new JLabel("blah blah blah blah");
         jautTxtLbl.setFont(new Font("Sitka Text", Font.PLAIN, 15));
         jautTxtLbl.setBounds(185, 507, 818, 47);
         questPanel.add(jautTxtLbl);
-        
+
         izv1Btn = new JButton("1.Izv");
         izv1Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv1Btn.setBounds(10, 564, 318, 41); 
@@ -225,7 +220,7 @@ public class UI extends JFrame {
         izv1Btn.setFocusPainted(false); 
         izv1Btn.setOpaque(false);
         questPanel.add(izv1Btn);
-        
+
         izv2Btn = new JButton("2.Izv");
         izv2Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv2Btn.setBounds(327, 564, 309, 41);
@@ -233,7 +228,7 @@ public class UI extends JFrame {
         izv2Btn.setFocusPainted(false); 
         izv2Btn.setOpaque(false);
         questPanel.add(izv2Btn);
-        
+
         izv3Btn = new JButton("3.Izv");
         izv3Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv3Btn.setBounds(634, 564, 309, 41); 
@@ -241,7 +236,7 @@ public class UI extends JFrame {
         izv3Btn.setFocusPainted(false); 
         izv3Btn.setOpaque(false);
         questPanel.add(izv3Btn);
-        
+
         izv4Btn = new JButton("4.Izv");
         izv4Btn.setFont(new Font("Sitka Text", Font.BOLD, 15));
         izv4Btn.setBounds(942, 564, 309, 41);
@@ -249,19 +244,19 @@ public class UI extends JFrame {
         izv4Btn.setFocusPainted(false); 
         izv4Btn.setOpaque(false);
         questPanel.add(izv4Btn);
-        
+
         nepareiziLbl = new JLabel("Nepareizi!");
         nepareiziLbl.setFont(new Font("Sitka Text", Font.BOLD, 20));
         nepareiziLbl.setBounds(877, 65, 113, 47);
         nepareiziLbl.setVisible(false);
         questPanel.add(nepareiziLbl);
-        
-        
+
+
         JLabel backImg2 = new JLabel();
         backImg2.setIcon(new ImageIcon(bckImg2));
         backImg2.setBounds(94, 0, 1074, 502);
         questPanel.add(backImg2);
-        
+
         izv1Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv1Btn.getText();
@@ -303,56 +298,92 @@ public class UI extends JFrame {
             }
         });
         cardPanel.add(questPanel, "questPanel");
+
+        }
+        public void setupRezPanel() {
+            rezPanel = new JPanel();
+            rezPanel.setLayout(null);
+            rezPanel.setBackground(Color.white);
+            
+            rezImgLbl = new JLabel();
+            rezImgLbl.setBounds(0, 93, 451, 451);
+            rezPanel.add(rezImgLbl);
+            
+            JLabel rezTitleLbl = new JLabel("Rezultāts");
+            rezTitleLbl.setBounds(512, 10, 244, 106);
+            rezTitleLbl.setFont(new Font("Sitka Text", Font.BOLD, 50));
+            rezPanel.add(rezTitleLbl);
+
+            rezLbl = new JLabel();
+            rezLbl.setHorizontalAlignment(SwingConstants.CENTER);
+            rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
+            rezLbl.setBounds(438, 123, 823, 59);
+            rezPanel.add(rezLbl);
+            cardPanel.add(rezPanel, "rezPanel");
+            
+            JButton uzSakBtn = new JButton("Uz Sākumu");
+            uzSakBtn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+            uzSakBtn.setBounds(1024, 539, 237, 56);
+            rezPanel.add(uzSakBtn);
         
+        uzSakBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                i[0] = 0;
+                parAtbildeti = 0;
+                firstAttempt = true;
+                cardLayout.show(cardPanel, "mainPanel");
+            }
+        });
     }
-    public void setupRezPanel() {
-    	rezPanel = new JPanel();
-        rezPanel.setLayout(null);
-        JLabel rezTitleLbl = new JLabel("Rezultāts");
-        rezTitleLbl.setBounds(512, 10, 244, 106);
-        rezTitleLbl.setFont(new Font("Sitka Text", Font.BOLD, 50));
-        rezPanel.add(rezTitleLbl);
-        
-        JLabel rezLbl = new JLabel("null/10 Jautājumi atbildēti pareizi ar pirmo!");
-        rezLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
-        rezLbl.setBounds(269, 180, 823, 59);
-        rezPanel.add(rezLbl);
-        cardPanel.add(rezPanel, "rezPanel");
-    }
-    public void quizEkrans(){
-    	questPanel.revalidate();
+
+    public void quizEkrans() {
+        questPanel.revalidate();
         questPanel.repaint();
-    	teksts=uzd.get(i[0]).getTeksts();
-        parAtbilde=uzd.get(i[0]).getParAtbilde();
-        bilde=uzd.get(i[0]).getBilde();
-        atbVar=uzd.get(i[0]).getAtbVar();
-        
-        kursJautLbl.setText((i[0]+1)+". Jautājums");
+        teksts = uzd.get(i[0]).getTeksts();
+        parAtbilde = uzd.get(i[0]).getParAtbilde();
+        bilde = uzd.get(i[0]).getBilde();
+        atbVar = uzd.get(i[0]).getAtbVar();
+
+        firstAttempt = true;
+
+        kursJautLbl.setText((i[0] + 1) + ". Jautājums");
         jautTxtLbl.setText(teksts);
         jautImgLbl.setIcon(null);
-        if(bilde!=null)
-        	jautImgLbl.setIcon(new ImageIcon(bilde));
+        if (bilde != null)
+            jautImgLbl.setIcon(new ImageIcon(bilde));
         else
-        	jautImgLbl.setIcon(new ImageIcon(basicImg));
+            jautImgLbl.setIcon(new ImageIcon(basicImg));
         izv1Btn.setText(atbVar[0]);
         izv2Btn.setText(atbVar[1]);
         izv3Btn.setText(atbVar[2]);
         izv4Btn.setText(atbVar[3]);
-        
     }
+
     public void checkIf10(int i, boolean correct) {
         if (i < 10) {
             nepareiziLbl.setVisible(!correct);
             if (correct) {
-                parAtbildeti++;
+                if (firstAttempt) {
+                    parAtbildeti++;
+                }
+                firstAttempt = false;
                 quizEkrans();
             }
         } else {
+            rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
+            if (parAtbildeti > 7) {
+                rezImgLbl.setIcon(new ImageIcon(goodRez));
+            } else if (parAtbildeti > 4) {
+                rezImgLbl.setIcon(new ImageIcon(midRez));
+            } else {
+                rezImgLbl.setIcon(new ImageIcon(badRez));
+            }
             cardLayout.show(cardPanel, "rezPanel");
         }
     }
+
     public boolean checkIfPar(String par, String liet) {
-        return par.equals(liet);
+        System.out.println(liet.equals(par));
+        return liet.equals(par);
     }
 }

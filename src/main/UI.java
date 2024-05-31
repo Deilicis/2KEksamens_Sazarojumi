@@ -45,7 +45,7 @@ public class UI extends JFrame {
     String lietAtb;
     int[] i = {0};
     int parAtbildeti;
-    boolean firstAttempt;  // Add this flag
+    boolean pirmaisMeiginajums;  // Add this flag
 
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
@@ -210,7 +210,7 @@ public class UI extends JFrame {
 
         jautTxtLbl = new JLabel("blah blah blah blah");
         jautTxtLbl.setFont(new Font("Sitka Text", Font.PLAIN, 15));
-        jautTxtLbl.setBounds(185, 507, 818, 47);
+        jautTxtLbl.setBounds(156, 507, 965, 47);
         questPanel.add(jautTxtLbl);
 
         izv1Btn = new JButton("1.Izv");
@@ -261,42 +261,46 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv1Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
+                checkIf10(i[0], correct);
                 if (correct) {
                     i[0]++;
                 }
-                checkIf10(i[0], correct);
             }
         });
+
         izv2Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv2Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
+                checkIf10(i[0], correct);
                 if (correct) {
                     i[0]++;
                 }
-                checkIf10(i[0], correct);
             }
         });
+
         izv3Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv3Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
+                checkIf10(i[0], correct);
                 if (correct) {
                     i[0]++;
                 }
-                checkIf10(i[0], correct);
             }
         });
+
         izv4Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv4Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
+                checkIf10(i[0], correct);
                 if (correct) {
                     i[0]++;
                 }
-                checkIf10(i[0], correct);
             }
         });
+
         cardPanel.add(questPanel, "questPanel");
 
         }
@@ -306,7 +310,7 @@ public class UI extends JFrame {
             rezPanel.setBackground(Color.white);
             
             rezImgLbl = new JLabel();
-            rezImgLbl.setBounds(0, 93, 451, 451);
+            rezImgLbl.setBounds(0, 93, 502, 451);
             rezPanel.add(rezImgLbl);
             
             JLabel rezTitleLbl = new JLabel("Rezultāts");
@@ -330,60 +334,67 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 i[0] = 0;
                 parAtbildeti = 0;
-                firstAttempt = true;
+                pirmaisMeiginajums = true;
                 cardLayout.show(cardPanel, "mainPanel");
             }
         });
     }
 
-    public void quizEkrans() {
-        questPanel.revalidate();
-        questPanel.repaint();
-        teksts = uzd.get(i[0]).getTeksts();
-        parAtbilde = uzd.get(i[0]).getParAtbilde();
-        bilde = uzd.get(i[0]).getBilde();
-        atbVar = uzd.get(i[0]).getAtbVar();
+        public void quizEkrans() {
+            questPanel.revalidate();
+            questPanel.repaint();
+            teksts = uzd.get(i[0]).getTeksts();
+            parAtbilde = uzd.get(i[0]).getParAtbilde();
+            bilde = uzd.get(i[0]).getBilde();
+            atbVar = uzd.get(i[0]).getAtbVar();
 
-        firstAttempt = true;
+            pirmaisMeiginajums = true;  // Reset first attempt flag for new question
 
-        kursJautLbl.setText((i[0] + 1) + ". Jautājums");
-        jautTxtLbl.setText(teksts);
-        jautImgLbl.setIcon(null);
-        if (bilde != null)
-            jautImgLbl.setIcon(new ImageIcon(bilde));
-        else
-            jautImgLbl.setIcon(new ImageIcon(basicImg));
-        izv1Btn.setText(atbVar[0]);
-        izv2Btn.setText(atbVar[1]);
-        izv3Btn.setText(atbVar[2]);
-        izv4Btn.setText(atbVar[3]);
-    }
+            kursJautLbl.setText((i[0] + 1) + ". Jautājums");
+            jautTxtLbl.setText(teksts);
+            jautImgLbl.setIcon(null);
+            if (bilde != null)
+                jautImgLbl.setIcon(new ImageIcon(bilde));
+            else
+                jautImgLbl.setIcon(new ImageIcon(basicImg));
+            izv1Btn.setText(atbVar[0]);
+            izv2Btn.setText(atbVar[1]);
+            izv3Btn.setText(atbVar[2]);
+            izv4Btn.setText(atbVar[3]);
+        }
 
-    public void checkIf10(int i, boolean correct) {
-        if (i < 10) {
-            nepareiziLbl.setVisible(!correct);
-            if (correct) {
-                if (firstAttempt) {
+        public void checkIf10(int i, boolean correct) {
+            if (i < 10) {
+                if (correct) {
+                    if (pirmaisMeiginajums) {
+                        parAtbildeti++;
+                    }
+                    pirmaisMeiginajums = true;
+                    quizEkrans();
+                } else {
+                    nepareiziLbl.setVisible(true);
+                    pirmaisMeiginajums = false;
+                }
+            } else {
+                if (correct && pirmaisMeiginajums) {
                     parAtbildeti++;
                 }
-                firstAttempt = false;
-                quizEkrans();
+                rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
+                if (parAtbildeti > 7) {
+                    rezImgLbl.setIcon(new ImageIcon(goodRez));
+                } else if (parAtbildeti > 4) {
+                    rezImgLbl.setIcon(new ImageIcon(midRez));
+                } else {
+                    rezImgLbl.setIcon(new ImageIcon(badRez));
+                }
+                cardLayout.show(cardPanel, "rezPanel");
             }
-        } else {
-            rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
-            if (parAtbildeti > 7) {
-                rezImgLbl.setIcon(new ImageIcon(goodRez));
-            } else if (parAtbildeti > 4) {
-                rezImgLbl.setIcon(new ImageIcon(midRez));
-            } else {
-                rezImgLbl.setIcon(new ImageIcon(badRez));
-            }
-            cardLayout.show(cardPanel, "rezPanel");
         }
-    }
+
 
     public boolean checkIfPar(String par, String liet) {
         System.out.println(liet.equals(par));
         return liet.equals(par);
+    
     }
 }

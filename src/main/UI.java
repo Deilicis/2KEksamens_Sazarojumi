@@ -8,15 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
+import javax.swing.WindowConstants;
 public class UI extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +44,10 @@ public class UI extends JFrame {
     String lietAtb;
     int[] i = {0};
     int parAtbildeti;
-    boolean pirmaisMeiginajums;  // Add this flag
+    ArrayList<Integer> rez = new ArrayList<Integer>();
+    Lietotajs curLietotajs = new Lietotajs(null, rez);
+    ArrayList<Lietotajs> lietotaji = Faili.readObjectFromFile();
+    boolean pirmaisMeiginajums;
 
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
@@ -54,6 +56,7 @@ public class UI extends JFrame {
     Image goodRez = new ImageIcon(this.getClass().getResource("/goodRez.jpg")).getImage();
     Image midRez = new ImageIcon(this.getClass().getResource("/midRez.jpg")).getImage();
     Image badRez = new ImageIcon(this.getClass().getResource("/badRez.jpg")).getImage();
+    private JTextField vardaTxtField;
 
 
     public UI() {
@@ -85,7 +88,7 @@ public class UI extends JFrame {
 
         JLabel testsLbl = new JLabel("TESTS");
         testsLbl.setFont(new Font("Sitka Text", Font.PLAIN, 40));
-        testsLbl.setBounds(567, 10, 120, 60);
+        testsLbl.setBounds(548, 10, 120, 60);
         mainPanel.add(testsLbl);
 
         JButton saktBtn = new JButton("Sākt");
@@ -112,10 +115,27 @@ public class UI extends JFrame {
         mainPanel.add(autorLbl);
 
         cardPanel.add(mainPanel, "mainPanel");
+        
+        vardaTxtField = new JTextField();
+        vardaTxtField.setFont(new Font("Sitka Text", Font.BOLD, 10));
+        vardaTxtField.setText("");
+        vardaTxtField.setBounds(432, 223, 341, 29);
+        mainPanel.add(vardaTxtField);
+        vardaTxtField.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("Ievadiet vārdu");
+        lblNewLabel.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        lblNewLabel.setBounds(548, 262, 120, 29);
+        mainPanel.add(lblNewLabel);
 
         saktBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	if(!vardaTxtField.getText().isEmpty()) {
+	            	if(curLietotajs.getVards()==null) {
+		            	curLietotajs.setVards(vardaTxtField.getText());
+	            	}
                 cardLayout.show(cardPanel, "infoPanel");
+            	}
             }
         });
 
@@ -380,6 +400,8 @@ public class UI extends JFrame {
                     parAtbildeti++;
                 }
                 rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
+                curLietotajs.setRezultati(rez);
+                Faili.ierakstit(curLietotajs);
                 if (parAtbildeti > 7) {
                     rezImgLbl.setIcon(new ImageIcon(goodRez));
                 } else if (parAtbildeti > 4) {

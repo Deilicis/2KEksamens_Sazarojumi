@@ -23,4 +23,12 @@ public class Lietotajs implements Serializable {
 	public ArrayList<Integer> getRezultati(){
 		return rezultati;
 	}
+	public String toString() {
+		String str="";
+		for(int i=0;i<rezultati.size();i++) {
+			str+=rezultati.get(i)+"/10 |";
+		}
+			return "|Vārds: " + vards + "| Pareizi atbildēti: " + str;
+		
+		}
 }

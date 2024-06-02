@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -46,7 +47,8 @@ public class UI extends JFrame {
     int parAtbildeti;
     ArrayList<Integer> rez = new ArrayList<Integer>();
     Lietotajs curLietotajs = new Lietotajs(null, rez);
-    ArrayList<Lietotajs> lietotaji = Faili.readObjectFromFile();
+    ArrayList<Lietotajs> lietotaji=new ArrayList<Lietotajs>();
+   
     boolean pirmaisMeiginajums;
 
     Klase klase = new Klase();
@@ -383,7 +385,7 @@ public class UI extends JFrame {
             izv4Btn.setText(atbVar[3]);
         }
 
-        public void checkIf10(int i, boolean correct) {
+        private void checkIf10(int i, boolean correct) {
             if (i < 10) {
                 if (correct) {
                     if (pirmaisMeiginajums) {
@@ -402,6 +404,17 @@ public class UI extends JFrame {
                 rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
                 curLietotajs.setRezultati(rez);
                 Faili.ierakstit(curLietotajs);
+                try {
+					lietotaji.add(Faili.readObjectFromFile());
+					System.out.println(lietotaji.get(0));
+					} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                Faili.ierakstit(curLietotajs);  // Save the current user to the file
                 if (parAtbildeti > 7) {
                     rezImgLbl.setIcon(new ImageIcon(goodRez));
                 } else if (parAtbildeti > 4) {

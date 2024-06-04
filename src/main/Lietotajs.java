@@ -26,7 +26,7 @@ public class Lietotajs implements Serializable {
 	public String toString() {
 		String str="";
 		for(int i=0;i<rezultati.size();i++) {
-			str+=rezultati.get(i)+"/10 |";
+			str=str+(rezultati.get(i)+"/10 | ");
 		}
 			return "|Vārds: " + vards + "| Pareizi atbildēti: " + str;
 		

@@ -56,7 +56,7 @@ public class UI extends JFrame {
     ArrayList<Lietotajs> lietotaji=new ArrayList<Lietotajs>();
    
     boolean pirmaisMeiginajums;
-    boolean pirmaisGajiens;
+    boolean pirmaisGajiens=true;
 
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
@@ -152,13 +152,15 @@ public class UI extends JFrame {
 	            	if(curLietotajs.getVards()==null) {
 		            	curLietotajs.setVards(vardaTxtField.getText());
 	            	}
-	            if(pirmaisGajiens) {
-                cardLayout.show(cardPanel, "infoPanel");
+	            if(!pirmaisGajiens) {
+	            uzd = klase.getRandOrderJautajumi();
+                quizEkrans();
+	            cardLayout.show(cardPanel, "questPanel");
+	            }else {
+	            cardLayout.show(cardPanel, "infoPanel");	
+	            pirmaisGajiens=false;
 	            }
-                
-                pirmaisGajiens=false;
-            	
-	            }
+            	}
             }
         });
 

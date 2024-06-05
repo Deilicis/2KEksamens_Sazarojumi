@@ -17,9 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
-import java.awt.Scrollbar;
 import java.awt.TextArea;
 public class UI extends JFrame {
 
@@ -49,8 +46,8 @@ public class UI extends JFrame {
     String lietAtb;
     int[] i = {0};
     int parAtbildeti;
-    TextArea textArea = new TextArea();
-    TextArea textArea1 = new TextArea();
+    JLabel leaderBoardLbl = new JLabel();
+    JLabel leaderBoardLbl1 = new JLabel();
     ArrayList<Integer> rez = new ArrayList<Integer>();
     Lietotajs curLietotajs = new Lietotajs(null, rez);
     ArrayList<Lietotajs> lietotaji=new ArrayList<Lietotajs>();
@@ -65,6 +62,7 @@ public class UI extends JFrame {
     Image goodRez = new ImageIcon(this.getClass().getResource("/goodRez.jpg")).getImage();
     Image midRez = new ImageIcon(this.getClass().getResource("/midRez.jpg")).getImage();
     Image badRez = new ImageIcon(this.getClass().getResource("/badRez.jpg")).getImage();
+    Image testImg = new ImageIcon(this.getClass().getResource("/testImg.png")).getImage();
     private JTextField vardaTxtField;
 
 
@@ -73,7 +71,7 @@ public class UI extends JFrame {
         setupInfoPanel();
         setupQuestPanel();
         setupRezPanel();
-        writeInTextArea(textArea1);
+        writeInTextArea(leaderBoardLbl1);
         setContentPane(cardPanel);
 
 
@@ -138,11 +136,15 @@ public class UI extends JFrame {
         lblNewLabel.setBounds(548, 262, 120, 29);
         mainPanel.add(lblNewLabel);
         
-        textArea1.setEditable(false);
-        textArea1.setRows(10);
-        textArea1.setBounds(10, 305, 341, 283);
-        writeInTextArea(textArea1);
-        mainPanel.add(textArea1);
+        leaderBoardLbl1.setBounds(10, 305, 341, 283);
+        writeInTextArea(leaderBoardLbl1);
+        
+        JLabel testImgLbl = new JLabel();
+        testImgLbl.setIcon(new ImageIcon(testImg));
+        testImgLbl.setBounds(825, 147, 382, 419);
+        mainPanel.add(testImgLbl);
+        
+        mainPanel.add(leaderBoardLbl1);
         
         
 
@@ -153,7 +155,7 @@ public class UI extends JFrame {
 		            	curLietotajs.setVards(vardaTxtField.getText());
 	            	}
 	            if(!pirmaisGajiens) {
-	            uzd = klase.getRandOrderJautajumi();
+	            uzd = Klase.getRandOrderJautajumi();
                 quizEkrans();
 	            cardLayout.show(cardPanel, "questPanel");
 	            }else {
@@ -225,7 +227,7 @@ public class UI extends JFrame {
 
         goBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                uzd = klase.getRandOrderJautajumi();
+                uzd = Klase.getRandOrderJautajumi();
                 cardLayout.show(cardPanel, "questPanel");  
                 quizEkrans();
             }
@@ -380,11 +382,15 @@ public class UI extends JFrame {
             rezPanel.add(uzSakBtn);
             
             
-            textArea.setBounds(574, 323, 399, 221);
-            textArea.setFont(new Font("Sitka Text", Font.BOLD, 15));
-            textArea.setEditable(false);
-            textArea.setRows(10);
-            rezPanel.add(textArea);
+            leaderBoardLbl.setBounds(574, 268, 407, 327);
+            leaderBoardLbl.setFont(new Font("Sitka Text", Font.BOLD, 15));
+            rezPanel.add(leaderBoardLbl);
+            
+            JLabel lblTop = new JLabel();
+            lblTop.setText("Top 10");
+            lblTop.setFont(new Font("Sitka Text", Font.BOLD, 30));
+            lblTop.setBounds(719, 193, 116, 65);
+            rezPanel.add(lblTop);
         
         uzSakBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -418,7 +424,7 @@ public class UI extends JFrame {
         }
 
         private void checkIf10(int i, boolean correct) {
-            if (i < 9) { // Changed from 10 to 9 to avoid double incrementing at the final question
+            if (i < 9) {
                 if (correct) {
                     if (pirmaisMeiginajums) {
                         parAtbildeti++;
@@ -430,7 +436,7 @@ public class UI extends JFrame {
                     nepareiziLbl.setVisible(true);
                     pirmaisMeiginajums = false;
                 }
-            } else if (i == 9) { // Handles the 10th question correctly
+            } else if (i == 9) {
                 if (correct && pirmaisMeiginajums) {
                     parAtbildeti++;
                 }
@@ -439,7 +445,7 @@ public class UI extends JFrame {
                 Faili.ierakstit(curLietotajs);
                 try {
                     lietotaji.add(Faili.readObjectFromFile());
-                    writeInTextArea(textArea);
+                    writeInTextArea(leaderBoardLbl);
                     System.out.println(lietotaji.get(0));
                 } catch (ClassNotFoundException | IOException e) {
                     e.printStackTrace();
@@ -462,10 +468,10 @@ public class UI extends JFrame {
         return liet.equals(par);
     
     }
-    private void writeInTextArea(TextArea textArea) {
+    private void writeInTextArea(JLabel leaderBoardLbl) {
     	for(int i=0;i<lietotaji.size();i++) {
-    		textArea.setText("");
-    		textArea.append(lietotaji.get(i).toString()+"\n");
+    		leaderBoardLbl.setText("");
+    		leaderBoardLbl.setText(lietotaji.get(i).toString()+"\n");
     	}
     }
 }

@@ -10,7 +10,7 @@ public class UzdPlain {
 	public UzdPlain(String teksts, String parAtbilde, Image bilde ,String[] atbVar) {
 		this.teksts = teksts;
 		this.parAtbilde = parAtbilde;
-		this.bilde=bilde; 
+		this.bilde = bilde; 
 		this.atbVar = atbVar;
 	}
 	public String getTeksts() {

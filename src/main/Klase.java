@@ -8,7 +8,7 @@ import java.util.Collections;
 import javax.swing.ImageIcon;
 
 public class Klase {
-	static ArrayList<UzdPlain> uzdArray = new ArrayList<UzdPlain>();
+	static ArrayList<UzdPlain> uzdArray = new ArrayList<>();
 	static Image jaut3Img = new ImageIcon(Klase.class.getResource("/jaut3.png")).getImage();
 	static Image jaut6Img = new ImageIcon(Klase.class.getResource("/jaut6.png")).getImage();
 	static Image jaut7Img = new ImageIcon(Klase.class.getResource("/jaut7.png")).getImage();

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import java.awt.TextArea;
 public class UI extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -48,9 +48,9 @@ public class UI extends JFrame {
     int parAtbildeti;
     JLabel leaderBoardLbl = new JLabel();
     JLabel leaderBoardLbl1 = new JLabel();
-    ArrayList<Integer> rez = new ArrayList<Integer>();
+    ArrayList<Integer> rez = new ArrayList<>();
     Lietotajs curLietotajs = new Lietotajs(null, rez);
-    ArrayList<Lietotajs> lietotaji=new ArrayList<Lietotajs>();
+    ArrayList<Lietotajs> lietotaji=new ArrayList<>();
    
     boolean pirmaisMeiginajums;
     boolean pirmaisGajiens=true;
@@ -67,11 +67,11 @@ public class UI extends JFrame {
 
 
     public UI() {
+    	writeInTextArea(leaderBoardLbl1);
         initialize();
         setupInfoPanel();
         setupQuestPanel();
         setupRezPanel();
-        writeInTextArea(leaderBoardLbl1);
         setContentPane(cardPanel);
 
 
@@ -102,19 +102,19 @@ public class UI extends JFrame {
         JButton saktBtn = new JButton("Sākt");
         saktBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
         saktBtn.setBounds(484, 305, 241, 60);
-        saktBtn.setBorderPainted(false); 
         saktBtn.setContentAreaFilled(false); 
         saktBtn.setFocusPainted(false); 
         saktBtn.setOpaque(false);
+        saktBtn.setBorder(new RoundedBorder(20));
         mainPanel.add(saktBtn);
 
         JButton izietBtn = new JButton("Iziet");
         izietBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
-        izietBtn.setBounds(484, 404, 241, 73);
-        izietBtn.setBorderPainted(false); 
+        izietBtn.setBounds(484, 404, 241, 60);
         izietBtn.setContentAreaFilled(false); 
         izietBtn.setFocusPainted(false); 
         izietBtn.setOpaque(false);
+        izietBtn.setBorder(new RoundedBorder(20));
         mainPanel.add(izietBtn);
 
         JLabel autorLbl = new JLabel("Autors: Dāvis Zigners");
@@ -125,18 +125,19 @@ public class UI extends JFrame {
         cardPanel.add(mainPanel, "mainPanel");
         
         vardaTxtField = new JTextField();
-        vardaTxtField.setFont(new Font("Sitka Text", Font.BOLD, 10));
+        vardaTxtField.setFont(new Font("Sitka Text", Font.BOLD, 15));
         vardaTxtField.setText("");
-        vardaTxtField.setBounds(432, 223, 341, 29);
+        vardaTxtField.setBounds(432, 223, 341, 49);
         mainPanel.add(vardaTxtField);
         vardaTxtField.setColumns(10);
         
-        JLabel lblNewLabel = new JLabel("Ievadiet vārdu");
-        lblNewLabel.setFont(new Font("Sitka Text", Font.BOLD, 15));
-        lblNewLabel.setBounds(548, 262, 120, 29);
-        mainPanel.add(lblNewLabel);
+        JLabel ievadietVrdLbl = new JLabel("Ievadiet vārdu:");
+        ievadietVrdLbl.setFont(new Font("Sitka Text", Font.BOLD, 15));
+        ievadietVrdLbl.setBounds(432, 195, 162, 29);
+        mainPanel.add(ievadietVrdLbl);
         
-        leaderBoardLbl1.setBounds(10, 305, 341, 283);
+        leaderBoardLbl1.setBounds(10, 208, 341, 380);
+        leaderBoardLbl1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         writeInTextArea(leaderBoardLbl1);
         
         JLabel testImgLbl = new JLabel();
@@ -145,6 +146,12 @@ public class UI extends JFrame {
         mainPanel.add(testImgLbl);
         
         mainPanel.add(leaderBoardLbl1);
+        
+        JLabel lblTop = new JLabel();
+        lblTop.setText("Top 10");
+        lblTop.setFont(new Font("Sitka Text", Font.BOLD, 30));
+        lblTop.setBounds(111, 147, 116, 65);
+        mainPanel.add(lblTop);
         
         
 
@@ -158,10 +165,13 @@ public class UI extends JFrame {
 	            uzd = Klase.getRandOrderJautajumi();
                 quizEkrans();
 	            cardLayout.show(cardPanel, "questPanel");
+	            ievadietVrdLbl.setText("Ievadiet vārdu:");
 	            }else {
-	            cardLayout.show(cardPanel, "infoPanel");	
-	            pirmaisGajiens=false;
+	            cardLayout.show(cardPanel, "infoPanel");
+	            ievadietVrdLbl.setText("Ievadiet vārdu:");
 	            }
+            	}else{
+            		ievadietVrdLbl.setText("Ievadiet vārdu: !!!");
             	}
             }
         });
@@ -192,9 +202,9 @@ public class UI extends JFrame {
         infoLbl_1.setBounds(100, 218, 1020, 50);
         infoPanel.add(infoLbl_1);
 
-        JLabel infoLbl_1_1 = new JLabel("Katrā jautājumā ir 4 izvēles opcijas ar vienu pareizu atbildi un uz jautājumiem atbild, kamēr ir pareizi.");
+        JLabel infoLbl_1_1 = new JLabel("Katrā jautājumā ir 4 izvēles opcijas ar vienu pareizu atbildi un uz jautājumiem atbild, kamēr ir pareizi atbildēts.");
         infoLbl_1_1.setFont(new Font("Sitka Text", Font.PLAIN, 20));
-        infoLbl_1_1.setBounds(100, 257, 1020, 50);
+        infoLbl_1_1.setBounds(100, 257, 1054, 50);
         infoPanel.add(infoLbl_1_1);
 
         JLabel infoLbl_1_1_1 = new JLabel("Beigās būs redzams jūsu rezultāts, parādot jūsu zināšanas par šo tēmu.");
@@ -209,7 +219,7 @@ public class UI extends JFrame {
 
         JButton goBtn = new JButton("Aiziet");
         goBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
-        goBtn.setBounds(913, 500, 241, 73);
+        goBtn.setBounds(913, 500, 241, 60);
         goBtn.setBorderPainted(false); 
         goBtn.setContentAreaFilled(false); 
         goBtn.setFocusPainted(false); 
@@ -218,7 +228,7 @@ public class UI extends JFrame {
 
         JButton bckBtn = new JButton("Atpakaļ");
         bckBtn.setFont(new Font("Sitka Text", Font.PLAIN, 30));
-        bckBtn.setBounds(70, 500, 241, 73);
+        bckBtn.setBounds(70, 500, 241, 60);
         bckBtn.setBorderPainted(false); 
         bckBtn.setContentAreaFilled(false); 
         bckBtn.setFocusPainted(false); 
@@ -229,6 +239,7 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 uzd = Klase.getRandOrderJautajumi();
                 cardLayout.show(cardPanel, "questPanel");  
+	            pirmaisGajiens=false;
                 quizEkrans();
             }
         });
@@ -366,24 +377,27 @@ public class UI extends JFrame {
             rezPanel.add(rezTitleLbl);
 
             rezLbl = new JLabel();
+            rezLbl.setText("Rezūltāts");
             rezLbl.setHorizontalAlignment(SwingConstants.CENTER);
             rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
-            rezLbl.setBounds(438, 123, 823, 59);
+            rezLbl.setBounds(358, 124, 823, 59);
             rezPanel.add(rezLbl);
             cardPanel.add(rezPanel, "rezPanel");
             
             JButton uzSakBtn = new JButton("Uz Sākumu");
-            uzSakBtn.setFont(new Font("Sitka Text", Font.BOLD, 15));
+            uzSakBtn.setFont(new Font("Sitka Text", Font.BOLD, 30));
             uzSakBtn.setBounds(1024, 539, 237, 56);
             uzSakBtn.setBorderPainted(false);
             uzSakBtn.setContentAreaFilled(false); 
             uzSakBtn.setFocusPainted(false); 
             uzSakBtn.setOpaque(false);
             rezPanel.add(uzSakBtn);
+            leaderBoardLbl.setVerticalAlignment(SwingConstants.TOP);
             
             
-            leaderBoardLbl.setBounds(574, 268, 407, 327);
+            leaderBoardLbl.setBounds(575, 246, 407, 327);
             leaderBoardLbl.setFont(new Font("Sitka Text", Font.BOLD, 15));
+            leaderBoardLbl.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             rezPanel.add(leaderBoardLbl);
             
             JLabel lblTop = new JLabel();
@@ -424,7 +438,7 @@ public class UI extends JFrame {
         }
 
         private void checkIf10(int i, boolean correct) {
-            if (i < 9) {
+            if (i != 10) {
                 if (correct) {
                     if (pirmaisMeiginajums) {
                         parAtbildeti++;
@@ -436,10 +450,11 @@ public class UI extends JFrame {
                     nepareiziLbl.setVisible(true);
                     pirmaisMeiginajums = false;
                 }
-            } else if (i == 9) {
+            }else{
                 if (correct && pirmaisMeiginajums) {
                     parAtbildeti++;
                 }
+                parAtbildeti-=1;
                 rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
                 curLietotajs.setRezultati(rez);
                 Faili.ierakstit(curLietotajs);

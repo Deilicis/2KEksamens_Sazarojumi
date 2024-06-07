@@ -48,7 +48,7 @@ public class UI extends JFrame {
     int parAtbildeti;
     JLabel leaderBoardLbl = new JLabel();
     JLabel leaderBoardLbl1 = new JLabel();
-    ArrayList<Integer> rez = new ArrayList<>();
+    ArrayList<String> rez = new ArrayList<>();
     Lietotajs curLietotajs = new Lietotajs(null, rez);
     ArrayList<Lietotajs> lietotaji=new ArrayList<>();
    
@@ -67,11 +67,11 @@ public class UI extends JFrame {
 
 
     public UI() {
-    	writeInTextArea(leaderBoardLbl1);
         initialize();
         setupInfoPanel();
         setupQuestPanel();
         setupRezPanel();
+    	writeInTextArea(leaderBoardLbl1);
         setContentPane(cardPanel);
 
 
@@ -91,7 +91,7 @@ public class UI extends JFrame {
         mainPanel.setBackground(Color.white);
         JLabel galvenaisTitulsLbl = new JLabel("Sazarojuma konstrukcijas programmēšanas valodā Java");
         galvenaisTitulsLbl.setFont(new Font("Sitka Text", Font.PLAIN, 30));
-        galvenaisTitulsLbl.setBounds(254, 66, 797, 87);
+        galvenaisTitulsLbl.setBounds(237, 65, 797, 87);
         mainPanel.add(galvenaisTitulsLbl);
 
         JLabel testsLbl = new JLabel("TESTS");
@@ -135,6 +135,7 @@ public class UI extends JFrame {
         ievadietVrdLbl.setFont(new Font("Sitka Text", Font.BOLD, 15));
         ievadietVrdLbl.setBounds(432, 195, 162, 29);
         mainPanel.add(ievadietVrdLbl);
+        leaderBoardLbl1.setVerticalAlignment(SwingConstants.TOP);
         
         leaderBoardLbl1.setBounds(10, 208, 341, 380);
         leaderBoardLbl1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -319,7 +320,12 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv1Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
-                checkIf10(i[0], correct);
+                try {
+					checkIf10(i[0], correct);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (correct) {
                     i[0]++;
                 }
@@ -330,7 +336,12 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv2Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
-                checkIf10(i[0], correct);
+                try {
+					checkIf10(i[0], correct);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (correct) {
                     i[0]++;
                 }
@@ -341,7 +352,12 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv3Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
-                checkIf10(i[0], correct);
+                try {
+					checkIf10(i[0], correct);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (correct) {
                     i[0]++;
                 }
@@ -352,7 +368,12 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lietAtb = izv4Btn.getText();
                 boolean correct = checkIfPar(parAtbilde, lietAtb);
-                checkIf10(i[0], correct);
+                try {
+					checkIf10(i[0], correct);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (correct) {
                     i[0]++;
                 }
@@ -378,9 +399,9 @@ public class UI extends JFrame {
 
             rezLbl = new JLabel();
             rezLbl.setText("Rezūltāts");
-            rezLbl.setHorizontalAlignment(SwingConstants.CENTER);
-            rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 30));
-            rezLbl.setBounds(358, 124, 823, 59);
+            rezLbl.setHorizontalAlignment(SwingConstants.LEFT);
+            rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 25));
+            rezLbl.setBounds(426, 93, 739, 59);
             rezPanel.add(rezLbl);
             cardPanel.add(rezPanel, "rezPanel");
             
@@ -412,6 +433,7 @@ public class UI extends JFrame {
                 parAtbildeti = 0;
                 pirmaisMeiginajums = true;
                 cardLayout.show(cardPanel, "mainPanel");
+            	writeInTextArea(leaderBoardLbl1);
             }
         });
     }
@@ -437,7 +459,7 @@ public class UI extends JFrame {
             izv4Btn.setText(atbVar[3]);
         }
 
-        private void checkIf10(int i, boolean correct) {
+        private void checkIf10(int i, boolean correct) throws ClassNotFoundException {
             if (i != 10) {
                 if (correct) {
                     if (pirmaisMeiginajums) {
@@ -451,20 +473,11 @@ public class UI extends JFrame {
                     pirmaisMeiginajums = false;
                 }
             }else{
-                if (correct && pirmaisMeiginajums) {
-                    parAtbildeti++;
-                }
-                parAtbildeti-=1;
                 rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
                 curLietotajs.setRezultati(rez);
-                Faili.ierakstit(curLietotajs);
-                try {
-                    lietotaji.add(Faili.readObjectFromFile());
-                    writeInTextArea(leaderBoardLbl);
-                    System.out.println(lietotaji.get(0));
-                } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
-                }
+                Faili.ierakstitF(curLietotajs);
+                lietotaji=(Faili.izveidotPicaF());
+				writeInTextArea(leaderBoardLbl);
                 if (parAtbildeti > 7) {
                     rezImgLbl.setIcon(new ImageIcon(goodRez));
                 } else if (parAtbildeti > 4) {
@@ -472,6 +485,7 @@ public class UI extends JFrame {
                 } else {
                     rezImgLbl.setIcon(new ImageIcon(badRez));
                 }
+                cardLayout.show(cardPanel, "mainPanel");
                 cardLayout.show(cardPanel, "rezPanel");
             }
         }
@@ -479,7 +493,6 @@ public class UI extends JFrame {
 
 
     public boolean checkIfPar(String par, String liet) {
-        System.out.println(liet.equals(par));
         return liet.equals(par);
     
     }

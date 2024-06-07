@@ -49,7 +49,7 @@ public class UI extends JFrame {
     JLabel leaderBoardLbl = new JLabel();
     JLabel leaderBoardLbl1 = new JLabel();
     ArrayList<String> rez = new ArrayList<>();
-    Lietotajs curLietotajs = new Lietotajs(null, rez);
+    Lietotajs curLietotajs = new Lietotajs(null, rez, 0);
     ArrayList<Lietotajs> lietotaji=new ArrayList<>();
    
     boolean pirmaisMeiginajums;
@@ -472,12 +472,13 @@ public class UI extends JFrame {
                     nepareiziLbl.setVisible(true);
                     pirmaisMeiginajums = false;
                 }
-            }else{
+            } else {
                 rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo!");
                 curLietotajs.setRezultati(rez);
+                curLietotajs.setParAtbildeti(parAtbildeti);
                 Faili.ierakstitF(curLietotajs);
-                lietotaji=(Faili.izveidotPicaF());
-				writeInTextArea(leaderBoardLbl);
+                lietotaji = Faili.izveidotPicaF();
+                writeInTextArea(leaderBoardLbl);
                 if (parAtbildeti > 7) {
                     rezImgLbl.setIcon(new ImageIcon(goodRez));
                 } else if (parAtbildeti > 4) {
@@ -491,15 +492,14 @@ public class UI extends JFrame {
         }
 
 
-
     public boolean checkIfPar(String par, String liet) {
         return liet.equals(par);
     
     }
     private void writeInTextArea(JLabel leaderBoardLbl) {
-    	for(int i=0;i<lietotaji.size();i++) {
-    		leaderBoardLbl.setText("");
-    		leaderBoardLbl.setText(lietotaji.get(i).toString()+"\n");
-    	}
+        leaderBoardLbl.setText("");
+        for (Lietotajs lietotajs : lietotaji) {
+            leaderBoardLbl.setText("<html>"+leaderBoardLbl.getText() + lietotajs.getVards() + ": " + lietotajs.getParAtbildeti()+ "<br/>" + "</html>");
+        }
     }
 }

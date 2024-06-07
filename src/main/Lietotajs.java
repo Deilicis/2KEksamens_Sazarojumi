@@ -8,27 +8,42 @@ public class Lietotajs implements Serializable {
 	String vards;
 	ArrayList<String> rezultati;
 	StringBuilder str = new StringBuilder();
-	public Lietotajs(String vards, ArrayList<String> rezultati) {
-		this.vards=vards;
-		this.rezultati=rezultati;
-	}
-	public void setVards(String v) {
-		vards=v;
-	}
-	public void setRezultati(ArrayList<String> rez) {
-		rezultati=rez;
-	}
-	public String getVards() {
-		return vards;
-	}
-	public ArrayList<String> getRezultati(){
-		return rezultati;
-	}
-	@Override
-	public String toString() {
-		for (int i = 0; i < rezultati.size(); i++) {
-			str.append(rezultati.get(i)).append("/10 | ");
-		}
-		return "|Vārds: " + vards + " | Pareizi atbildēti: " + str.toString();
-	}
+	int parAtbildeti;
+    public Lietotajs(String vards, ArrayList<String> rezultati, int parAtbildeti) {
+        this.vards = vards;
+        this.rezultati = rezultati;
+        this.parAtbildeti = parAtbildeti;
+    }
+
+    public void setVards(String v) {
+        vards = v;
+    }
+
+    public void setRezultati(ArrayList<String> rez) {
+        rezultati = rez;
+    }
+
+    public void setParAtbildeti(int parAtbildeti) {
+        this.parAtbildeti = parAtbildeti;
+    }
+
+    public String getVards() {
+        return vards;
+    }
+
+    public ArrayList<String> getRezultati() {
+        return rezultati;
+    }
+
+    public int getParAtbildeti() {
+        return parAtbildeti;
+    }
+
+    @Override
+    public String toString() {
+        for (int i = 0; i < rezultati.size(); i++) {
+            str.append(rezultati.get(i)).append("/10 | ");
+        }
+        return "|Vārds: " + vards + "| + " + "| Rezultāti: " + str.toString();
+    }
 }

@@ -135,8 +135,8 @@ public class UI extends JFrame {
         ievadietVrdLbl.setFont(new Font("Sitka Text", Font.BOLD, 15));
         ievadietVrdLbl.setBounds(432, 195, 162, 29);
         mainPanel.add(ievadietVrdLbl);
-        leaderBoardLbl1.setVerticalAlignment(SwingConstants.TOP);
         
+        leaderBoardLbl1.setVerticalAlignment(SwingConstants.TOP);
         leaderBoardLbl1.setBounds(10, 208, 341, 380);
         leaderBoardLbl1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         writeInTextArea(leaderBoardLbl1);
@@ -389,7 +389,7 @@ public class UI extends JFrame {
             rezPanel.setBackground(Color.white);
             
             rezImgLbl = new JLabel();
-            rezImgLbl.setBounds(0, 93, 502, 451);
+            rezImgLbl.setBounds(10, 94, 502, 451);
             rezPanel.add(rezImgLbl);
             
             JLabel rezTitleLbl = new JLabel("Rezultāts");
@@ -401,7 +401,7 @@ public class UI extends JFrame {
             rezLbl.setText("Rezūltāts");
             rezLbl.setHorizontalAlignment(SwingConstants.LEFT);
             rezLbl.setFont(new Font("Sitka Text", Font.BOLD, 25));
-            rezLbl.setBounds(426, 93, 739, 59);
+            rezLbl.setBounds(512, 94, 739, 59);
             rezPanel.add(rezLbl);
             cardPanel.add(rezPanel, "rezPanel");
             
@@ -498,8 +498,11 @@ public class UI extends JFrame {
     }
     private void writeInTextArea(JLabel leaderBoardLbl) {
         leaderBoardLbl.setText("");
-        for (Lietotajs lietotajs : lietotaji) {
-            leaderBoardLbl.setText("<html>"+leaderBoardLbl.getText() + lietotajs.getVards() + ": " + lietotajs.getParAtbildeti()+ "<br/>" + "</html>");
+        StringBuilder str = new StringBuilder("<html>");
+        for (int i = 0; i < lietotaji.size(); i++) {
+            str.append(lietotaji.get(i).toString()).append("<br>");
         }
+        str.append("</html>");
+        leaderBoardLbl.setText(str.toString());
     }
 }

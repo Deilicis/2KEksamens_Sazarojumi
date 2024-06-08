@@ -44,6 +44,6 @@ public class Lietotajs implements Serializable {
         for (int i = 0; i < rezultati.size(); i++) {
             str.append(rezultati.get(i)).append("/10 | ");
         }
-        return "|Vārds: " + vards + "| + " + "| Rezultāti: " + str.toString();
+        return "| Vārds: " + vards+ " | Rezultāti: " + str.toString();
     }
 }

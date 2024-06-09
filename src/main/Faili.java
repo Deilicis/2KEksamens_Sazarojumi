@@ -2,42 +2,56 @@ package main;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
 public class Faili {
+	static boolean first;
 
 	public static void ierakstitF(Lietotajs liet) {
-	    try {
-	        FileWriter fw = new FileWriter("lietotaji.txt", true);
-	        PrintWriter pw = new PrintWriter(fw);
-	        String str = liet.getVards();
-	        for (int j = 0; j < liet.getRezultati().size(); j++) {
-	            str += liet.getRezultati().get(j) + " ";
-	        }
-	        str += "\n" + liet.getParAtbildeti() + "\n";
-	        pw.print(str);
-	        pw.close();
-	    } catch (IOException e) {
-	        JOptionPane.showMessageDialog(null, "Radās kļūda ierakstot failā!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-	    }
+		if (liet.getRezultati() == null) {
+			JOptionPane.showMessageDialog(null, "Rezultāti nevar būt null", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		try {
+			FileWriter fw = new FileWriter("lietotajs.txt", true);
+			PrintWriter pw = new PrintWriter(fw);
+			if (first) {
+				pw.print("");
+				pw.close();
+				first = false;
+			}
+			String str = liet.getVards() + "\n";
+			for (String rezultats : liet.getRezultati()) {
+				str += rezultats + "";
+			}
+			pw.print(str);
+			pw.println("\n");
+			pw.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Radās kļūda ierakstot failā!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+		}
 	}
+
 	public static ArrayList<Lietotajs> izveidotLiet() {
-	    ArrayList<Lietotajs> lietList = new ArrayList<>();
-	    try (BufferedReader br = new BufferedReader(new FileReader("lietotaji.txt"))) {
-	        String line;
-	        while ((line = br.readLine()) != null) {
-	            String vards = line.trim();
-	            String[] rezultatiArr = br.readLine().trim().split(" ");
-	            ArrayList<String> rez = new ArrayList<>(Arrays.asList(rezultatiArr));
-	            int parAtbildeti = Integer.parseInt(br.readLine().trim());
-	            Lietotajs liet = new Lietotajs(vards, rez, parAtbildeti);
-	            lietList.add(liet);
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return lietList;
+		ArrayList<Lietotajs> lietList = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader("lietotajs.txt"))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (!line.trim().isEmpty()) {
+					String vards = line.trim();
+					ArrayList<String> rezultatiList = new ArrayList<>();
+					while ((line = br.readLine()) != null && !line.trim().isEmpty()) {
+						rezultatiList.add(line.trim());
+					}
+					String[] rezultati = rezultatiList.toArray(new String[0]);
+					Lietotajs liet = new Lietotajs(vards, rezultati);
+					lietList.add(liet);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return lietList;
 	}
 }

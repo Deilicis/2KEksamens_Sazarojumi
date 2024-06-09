@@ -12,7 +12,7 @@ public class Faili {
 	    try {
 	        FileWriter fw = new FileWriter("lietotaji.txt", true);
 	        PrintWriter pw = new PrintWriter(fw);
-	        String str = liet.getVards() + "\n";
+	        String str = liet.getVards();
 	        for (int j = 0; j < liet.getRezultati().size(); j++) {
 	            str += liet.getRezultati().get(j) + " ";
 	        }
@@ -23,7 +23,7 @@ public class Faili {
 	        JOptionPane.showMessageDialog(null, "Radās kļūda ierakstot failā!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
-	public static ArrayList<Lietotajs> izveidotPicaF() {
+	public static ArrayList<Lietotajs> izveidotLiet() {
 	    ArrayList<Lietotajs> lietList = new ArrayList<>();
 	    try (BufferedReader br = new BufferedReader(new FileReader("lietotaji.txt"))) {
 	        String line;
@@ -32,8 +32,8 @@ public class Faili {
 	            String[] rezultatiArr = br.readLine().trim().split(" ");
 	            ArrayList<String> rez = new ArrayList<>(Arrays.asList(rezultatiArr));
 	            int parAtbildeti = Integer.parseInt(br.readLine().trim());
-	            Lietotajs pica = new Lietotajs(vards, rez, parAtbildeti);
-	            lietList.add(pica);
+	            Lietotajs liet = new Lietotajs(vards, rez, parAtbildeti);
+	            lietList.add(liet);
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();

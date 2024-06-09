@@ -7,7 +7,6 @@ public class Lietotajs implements Serializable {
 	private static final long serialVersionUID = 2L;
 	String vards;
 	ArrayList<String> rezultati;
-	StringBuilder str = new StringBuilder();
 	int parAtbildeti;
     public Lietotajs(String vards, ArrayList<String> rezultati, int parAtbildeti) {
         this.vards = vards;
@@ -41,6 +40,7 @@ public class Lietotajs implements Serializable {
 
     @Override
     public String toString() {
+    	StringBuilder str = new StringBuilder();
         for (int i = 0; i < rezultati.size(); i++) {
             str.append(rezultati.get(i)).append("/10 | ");
         }

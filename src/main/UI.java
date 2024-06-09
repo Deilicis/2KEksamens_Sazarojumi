@@ -27,42 +27,40 @@ public class UI extends JFrame {
     private JPanel rezPanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-    JLabel kursJautLbl;
-    JLabel jautImgLbl;
-    JLabel jautTxtLbl;
-    JLabel nepareiziLbl;
-    JLabel rezLbl;
-    JLabel rezImgLbl;
-    JButton izv1Btn;
-    JButton izv2Btn;
-    JButton izv3Btn;
-    JButton izv4Btn;
-    boolean atbildetsPareizi;
-    boolean atbildetsPareizi1;
-    String teksts;
-    String parAtbilde;
-    Image bilde;
-    String[] atbVar;
-    String lietAtb;
-    int[] i = {0};
-    int parAtbildeti;
-    JLabel leaderBoardLbl = new JLabel();
-    JLabel leaderBoardLbl1 = new JLabel();
-    ArrayList<String> rez = new ArrayList<>();
-    Lietotajs curLietotajs = new Lietotajs(null, rez, 0);
-    ArrayList<Lietotajs> lietotaji=new ArrayList<>();
+    private JLabel kursJautLbl;
+    private JLabel jautImgLbl;
+    private JLabel jautTxtLbl;
+    private JLabel nepareiziLbl;
+    private JLabel rezLbl;
+    private JLabel rezImgLbl;
+    private JButton izv1Btn;
+    private JButton izv2Btn;
+    private JButton izv3Btn;
+    private JButton izv4Btn;
+    private String teksts;
+    private String parAtbilde;
+    private Image bilde;
+    private String[] atbVar;
+    private String lietAtb;
+    private int[] i = {0};
+    private int parAtbildeti;
+    private JLabel leaderBoardLbl = new JLabel();
+    private JLabel leaderBoardLbl1 = new JLabel();
+    private ArrayList<String> rez = new ArrayList<>();
+    private Lietotajs curLietotajs = new Lietotajs(null, rez, 0);
+    private ArrayList<Lietotajs> lietotaji=new ArrayList<>();
    
-    boolean pirmaisMeiginajums;
-    boolean pirmaisGajiens=true;
+    private boolean pirmaisMeiginajums;
+    private boolean pirmaisGajiens=true;
 
     Klase klase = new Klase();
     ArrayList<UzdPlain> uzd;
-    Image bckImg2 = new ImageIcon(this.getClass().getResource("/backgroundTest.png")).getImage();
-    Image basicImg = new ImageIcon(this.getClass().getResource("/basicImg.png")).getImage();
-    Image goodRez = new ImageIcon(this.getClass().getResource("/goodRez.jpg")).getImage();
-    Image midRez = new ImageIcon(this.getClass().getResource("/midRez.jpg")).getImage();
-    Image badRez = new ImageIcon(this.getClass().getResource("/badRez.jpg")).getImage();
-    Image testImg = new ImageIcon(this.getClass().getResource("/testImg.png")).getImage();
+    private Image bckImg2 = new ImageIcon(this.getClass().getResource("/backgroundTest.png")).getImage();
+    private Image basicImg = new ImageIcon(this.getClass().getResource("/basicImg.png")).getImage();
+    private Image goodRez = new ImageIcon(this.getClass().getResource("/goodRez.jpg")).getImage();
+    private Image midRez = new ImageIcon(this.getClass().getResource("/midRez.jpg")).getImage();
+    private Image badRez = new ImageIcon(this.getClass().getResource("/badRez.jpg")).getImage();
+    private Image testImg = new ImageIcon(this.getClass().getResource("/testImg.png")).getImage();
     private JTextField vardaTxtField;
 
 
@@ -383,7 +381,7 @@ public class UI extends JFrame {
         cardPanel.add(questPanel, "questPanel");
 
         }
-        public void setupRezPanel() {
+        private void setupRezPanel() {
             rezPanel = new JPanel();
             rezPanel.setLayout(null);
             rezPanel.setBackground(Color.white);
@@ -438,7 +436,7 @@ public class UI extends JFrame {
         });
     }
 
-        public void quizEkrans() {
+        private void quizEkrans() {
             questPanel.revalidate();
             questPanel.repaint();
             teksts = uzd.get(i[0]).getTeksts();
@@ -477,7 +475,7 @@ public class UI extends JFrame {
                 curLietotajs.setRezultati(rez);
                 curLietotajs.setParAtbildeti(parAtbildeti);
                 Faili.ierakstitF(curLietotajs);
-                lietotaji = Faili.izveidotPicaF();
+                lietotaji = Faili.izveidotLiet();
                 writeInTextArea(leaderBoardLbl);
                 if (parAtbildeti > 7) {
                     rezImgLbl.setIcon(new ImageIcon(goodRez));
@@ -492,7 +490,7 @@ public class UI extends JFrame {
         }
 
 
-    public boolean checkIfPar(String par, String liet) {
+    private boolean checkIfPar(String par, String liet) {
         return liet.equals(par);
     
     }

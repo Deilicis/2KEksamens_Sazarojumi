@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class Faili {
 	static boolean first;
 
-	public static void ierakstitF(Lietotajs liet) {
+	public void ierakstitF(Lietotajs liet) {
 		if (liet.getRezultati() == null) {
 			JOptionPane.showMessageDialog(null, "Rezultāti nevar būt null", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -33,7 +33,7 @@ public class Faili {
 		}
 	}
 
-	public static ArrayList<Lietotajs> izveidotLiet() {
+	public ArrayList<Lietotajs> izveidotLiet() {
 		ArrayList<Lietotajs> lietList = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader("lietotajs.txt"))) {
 			String line;

@@ -1,5 +1,5 @@
 # Tests par Sazarojuma konstrukcijām programmēšanas valodā Java.
-#### Java programma, kas realizē 10 testa jautājumus par sazarojuma konstrukcijām. Beigās parāda lietotāja rezultātu un iepriekšējo meiģinājumu rezultātus.
+#### Java programma, kas realizē 10 testa jautājumus nejaušā secībā par sazarojuma konstrukcijām. Beigās parāda lietotāja rezultātu un iepriekšējo meiģinājumu rezultātus.
 
 ![Testa attēls](https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-10/512/Test-paper-icon.png)
 

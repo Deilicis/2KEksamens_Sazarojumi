@@ -455,13 +455,13 @@ public class UI extends JFrame {
 	    }
 	}
 
-	private void showResults() throws ClassNotFoundException {
+	private void showResults() {
 	    rez = new String[1];
 	    rez[0] = parAtbildeti + "";
 	    curLietotajs.setRezultati(rez);
 	    faili.ierakstitF(curLietotajs);
 	    lietotaji = faili.izveidotLiet();
-	    rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo"+curLietotajs.getVards()+"!");
+	    rezLbl.setText(parAtbildeti + "/10 Jautājumi atbildēti pareizi ar pirmo "+curLietotajs.getVards()+"!");
 
 	    if (parAtbildeti > 7) {
 	        rezImgLbl.setIcon(new ImageIcon(goodRez));
